@@ -1,0 +1,76 @@
+             ARTWALA FOUNDATION – Website Development Brief
+1. Core Objectives
+• Provide every artist a personal storefront + profile.
+• Allow users (buyers) to browse, interact and purchase directly from artists.
+• Enable chapters city-wise to promote local art and connect regional artists.
+• Create a community space for collaborations, mentorship, job postings.
+• Facilitate custom commission-based hiring (murals, sculpture, etc.).
+• Entirely non-commission model — ARTWALA only provides platform support.
+
+2. Core Website Architecture / Sitemap
+Homepage includes mission, vision, founders, featured artists/products, and navigation tabs:
+- Home
+- Explore Artists
+- Shop by Category
+- City Chapters
+- Community
+- Hire Artists
+- About Us
+- Join ARTWALA
+- Login / Register
+
+3. User Roles and Permissions
+• Artist (Registered): Create/Edit profile, upload products, manage pricing, join chapters, community, generate
+public shareable profile link.
+• Visitor/Buyer (Unregistered): Browse, view artist profiles, view products, access home/shop pages.
+• Buyer (Registered): All of above + Wishlist, Cart, Checkout, Hire an Artist, join Community.
+• Admin: Full access: manage users, moderate content, approve city chapters, manage categories, handle
+disputes.
+
+4. Artist Profile Pages
+Each artist has a profile with a unique URL like: www.artwala.org/artist/username
+Includes profile photo, name, logo, tagline, bio, chapter, contact links, and artwork grid with product details.
+
+5. E-commerce Functionality (Store Module)
+Artists can list products with category tags, filters, and secure checkout. Buyers can add to cart, wishlist, and
+purchase directly.
+
+6. Membership System
+Artists register, verify by email/phone, upload portfolio and pay membership if applicable.
+
+7. City-Based Chapters (Pain India Network)
+Interactive directory by state/city, chapter admin, artist list, local events, and private forums.
+8. Hire an Artist Portal
+Buyers can submit commission project briefs, budgets, and references to hire artists for custom work.
+
+9. Community Module
+Open forum for registered artists to post, collaborate, and discuss opportunities.
+
+10. Authentication & Account Management
+Secure login with Google/email, artist/buyer dashboards, and profile/order management.
+
+11. Technology Stack Recommendation
+• Frontend: React.js / Next.js
+• Backend: Node.js / Django
+• Database: PostgreSQL / MongoDB
+• Hosting: Vercel / Netlify / AWS
+• E-Commerce: Stripe / Razorpay API
+• Auth: Firebase Auth / JWT
+• Image Upload: Cloudinary / AWS S3
+• Community Forum: Discourse API / Custom Forum
+• SEO + Shareable Links: Open Graph + Slug-based URLs
+
+12. Future Enhancements
+• Mobile App for Artists & Buyers
+• AR View for Art in Home Spaces
+• Corporate Dashboard for CSR / Art Procurement
+• AI-Powered Art Recommendation
+• NFT Integration (Optional)
+
+13. Reference Platforms (Inspiration)
+• Behance – Artist portfolios: https://www.behance.net
+• Etsy – Artisan selling platform: https://www.etsy.com
+• Artmajeur – Global art gallery + artist store: https://www.artmajeur.com
+• Shopify Artist Templates – Art selling templates: https://themes.shopify.com
+• Displate – Custom art buying: https://www.displate.com
+
