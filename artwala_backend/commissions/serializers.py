@@ -10,7 +10,7 @@ class CommissionRequestSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def get_proposals_count(self, obj):
-        return obj.proposals.count()
+        return 1 if hasattr(obj, 'proposal') and obj.proposal else 0
 
 class CommissionProposalSerializer(serializers.ModelSerializer):
     artist_name = serializers.CharField(source='artist.display_name', read_only=True)

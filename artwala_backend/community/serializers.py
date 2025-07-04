@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Forum, ForumPost, ForumComment, PostLike
+from .models import Forum, ForumPost, ForumComment, PostLike, ForumMembership
+from users.serializers import UserSerializer
 
 class ForumSerializer(serializers.ModelSerializer):
     posts_count = serializers.SerializerMethodField()
@@ -38,3 +39,12 @@ class PostLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostLike
         fields = '__all__'
+
+class ForumMembershipSerializer(serializers.ModelSerializer):
+    user_details = UserSerializer(source='user', read_only=True)
+    forum_details = ForumSerializer(source='forum', read_only=True)
+    
+    class Meta:
+        model = ForumMembership
+        fields = '__all__'
+        read_only_fields = ['joined_at']

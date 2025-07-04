@@ -160,3 +160,37 @@ class ArtistReview(models.Model):
         unique_together = ['artist', 'reviewer']
         verbose_name = 'Artist Review'
         verbose_name_plural = 'Artist Reviews'
+
+class ArtistAnalytics(models.Model):
+    """
+    Analytics and performance metrics for artists
+    """
+    artist = models.OneToOneField(ArtistProfile, on_delete=models.CASCADE, related_name='analytics')
+    total_sales = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    total_orders = models.PositiveIntegerField(default=0)
+    total_commissions = models.PositiveIntegerField(default=0)
+    profile_views = models.PositiveIntegerField(default=0)
+    products_sold = models.PositiveIntegerField(default=0)
+    average_rating = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
+    last_updated = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'artist_analytics'
+    
+    def __str__(self):
+        return f"Analytics for {self.artist.user.username}"
+
+class ArtistFollowing(models.Model):
+    """
+    Users following artists for updates
+    """
+    follower = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='following_artists')
+    artist = models.ForeignKey(ArtistProfile, on_delete=models.CASCADE, related_name='followers')
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'artist_followings'
+        unique_together = ['follower', 'artist']
+    
+    def __str__(self):
+        return f"{self.follower.username} follows {self.artist.user.username}"

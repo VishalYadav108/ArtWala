@@ -393,3 +393,39 @@ class OrderItem(models.Model):
         decimal_places=2,
         help_text="Price paid for this item at time of purchase (preserves historical pricing)"
     )
+
+class Wishlist(models.Model):
+    """
+    User's wishlist for saving favorite products
+    """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='wishlists')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='wishlisted_by')
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'wishlists'
+        unique_together = ['user', 'product']
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.product.title}"
+
+class ProductReview(models.Model):
+    """
+    User reviews and ratings for products
+    """
+    RATING_CHOICES = [(i, i) for i in range(1, 6)]
+    
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    reviewer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='product_reviews')
+    rating = models.PositiveIntegerField(choices=RATING_CHOICES)
+    comment = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'product_reviews'
+        unique_together = ['product', 'reviewer']
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"{self.reviewer.username} - {self.product.title} ({self.rating}/5)"

@@ -328,3 +328,22 @@ class CommissionReview(models.Model):
     
     class Meta:
         db_table = 'commission_reviews'
+
+class Message(models.Model):
+    """
+    Communication system for artists and clients
+    """
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='sent_messages')
+    recipient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='received_messages')
+    commission_request = models.ForeignKey(CommissionRequest, on_delete=models.CASCADE, related_name='messages', null=True, blank=True)
+    subject = models.CharField(max_length=200)
+    content = models.TextField()
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'messages'
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"From {self.sender.username} to {self.recipient.username}: {self.subject}"

@@ -6,6 +6,7 @@ router = DefaultRouter()
 router.register(r'forums', views.ForumViewSet)
 router.register(r'posts', views.ForumPostViewSet)
 router.register(r'jobs', views.JobPostingViewSet)
+router.register(r'memberships', views.ForumMembershipViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

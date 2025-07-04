@@ -31,6 +31,10 @@ class Forum(models.Model):
         help_text="When this forum was created"
     )
 
+    class Meta:
+        db_table = 'forums'
+        ordering = ['name']
+
 class ForumPost(models.Model):
     """
     Individual discussion threads within forums
@@ -313,3 +317,49 @@ class JobPosting(models.Model):
     class Meta:
         db_table = 'job_postings'
         ordering = ['-created_at']
+
+class ForumMembership(models.Model):
+    """
+    Users' membership in forums
+    Tracks forum subscriptions and participation
+    """
+    # Core relationships
+    forum = models.ForeignKey(
+        Forum, 
+        on_delete=models.CASCADE, 
+        related_name='memberships',
+        help_text="The forum this membership belongs to"
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        related_name='forum_memberships',
+        help_text="The user who is a member of this forum"
+    )
+    
+    # Membership details
+    joined_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="When user joined this forum"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        help_text="Whether membership is currently active"
+    )
+    notification_level = models.CharField(
+        max_length=20,
+        choices=[
+            ('all', 'All Posts'),
+            ('mentions', 'Mentions Only'),
+            ('none', 'No Notifications')
+        ],
+        default='all',
+        help_text="What level of notifications user receives from this forum"
+    )
+    
+    class Meta:
+        db_table = 'forum_memberships'
+        unique_together = ['forum', 'user']
+    
+    def __str__(self):
+        return f"{self.user.username} in {self.forum.name}"
